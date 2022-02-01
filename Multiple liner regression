@@ -22,14 +22,13 @@ summary(model)
 model2 <- lm(charges~ age+bmi+children+smoker, data=train)
 summary (model2)$coefficient
 Model <- lm(charges ~., data = train)
-#Creates the model. Here, lm stands for the linear regression model. Revenue is the target variable we want to track.
+.
 summary(Model)
 pred <- predict(Model, test) 
 pred 
-res<-residuals(Model) # Find the residuals
-res<-as.data.frame(res) # Convert the residual into a dataframe
+res<-residuals(Model) 
+res<-as.data.frame(res)
 res 
-# Prints the residuals
 # compare the predicted vs actual values
 results<-cbind(pred,test$charges)
 results
@@ -37,7 +36,7 @@ head(results)
 colnames(results)<-c('predicted','real')
 results<-as.data.frame(results)
 head(results)
-pred <- predict(model,test)
+pred <- predict(Model,test)
 pred
 #Comparison
 plot(test$charges, type = 'l', lty= '96', col = "red")
