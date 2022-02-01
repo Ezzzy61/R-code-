@@ -8,7 +8,7 @@ plot(`insurance.(1)`)
 #Splitting test and training data
 set.seed(2)
 library(caTools)
-split <- sample.split(`insurance.(1)`,SplitRatio = 0.6)
+split <- sample.split(`insurance.(1)`,SplitRatio = 0.7)
 split
 train <- subset(`insurance.(1)`,split="TRUE")
 test <- subset(`insurance.(1)`,split="FALSE")
@@ -19,14 +19,29 @@ test
 model <- lm(charges~ age+sex+bmi+children+smoker+region , data=train)
 summary(model)
 #Prediction
-model <- lm(charges~ age+bmi+children+smoker, data=train)
+model2 <- lm(charges~ age+bmi+children+smoker, data=train)
+summary (model2)$coefficient
+Model <- lm(charges ~., data = train)
+#Creates the model. Here, lm stands for the linear regression model. Revenue is the target variable we want to track.
+summary(Model)
+pred <- predict(Model, test) 
+pred 
+res<-residuals(Model) # Find the residuals
+res<-as.data.frame(res) # Convert the residual into a dataframe
+res 
+# Prints the residuals
+# compare the predicted vs actual values
+results<-cbind(pred,test$charges)
+results
+head(results)
+colnames(results)<-c('predicted','real')
+results<-as.data.frame(results)
+head(results)
 pred <- predict(model,test)
 pred
 #Comparison
 plot(test$charges, type = 'l', lty= '96', col = "red")
 lines( pred , type = "l", col = "yellow" )
-plot(pred, type = 'l', lty= '96', col = "yellow")        
-rmse<- sqrt(mean(pred- train$charges)^2)
-rmse
-rmse<- sqrt(mean(pred- test$charges)^2)
+plot(pred, type = 'l', lty= '96', col = "yellow")
+rmse <- sqrt(mean(pred-`insurance.(1)`$charges)^2) 
 rmse
