@@ -15,21 +15,21 @@ test <- subset(`insurance.(1)`,split="FALSE")
 train
 test
 
-#Making a lm model on the following data
+
 model <- lm(charges~ age+sex+bmi+children+smoker+region , data=train)
 summary(model)
-#Prediction
+
 model2 <- lm(charges~ age+bmi+children+smoker, data=train)
 summary (model2)$coefficient
 Model <- lm(charges ~., data = train)
-.
+
 summary(Model)
 pred <- predict(Model, test) 
 pred 
 res<-residuals(Model) 
 res<-as.data.frame(res)
 res 
-# compare the predicted vs actual values
+
 results<-cbind(pred,test$charges)
 results
 head(results)
@@ -38,7 +38,7 @@ results<-as.data.frame(results)
 head(results)
 pred <- predict(Model,test)
 pred
-#Comparison
+
 plot(test$charges, type = 'l', lty= '96', col = "red")
 lines( pred , type = "l", col = "yellow" )
 plot(pred, type = 'l', lty= '96', col = "yellow")
